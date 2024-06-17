@@ -11,7 +11,7 @@ const Cart = () => {
 
   useEffect(() => {
     dispatch(getCartTotal());
-  }, [useSelector((state) => state.cart)]);
+  }, [dispatch]); // Add 'dispatch' to the dependencies array
 
   const handleRemoveItem = (itemId) => {
     dispatch(removeItem({ id: itemId }));
@@ -26,10 +26,11 @@ const Cart = () => {
     const newQty = Math.max(currentQty - 1, 1);
     dispatch(updateQuantity({ id: cartProductId, quantity: newQty }));
   };
+
   return (
     <div className="bg-white p-4">
       <div className="flex justify-between items-center pb-4 border-b-2">
-        <h1 className="text-xl font-semibold ">Shopping Cart</h1>
+        <h1 className="text-xl font-semibold">Shopping Cart</h1>
       </div>
       <div className="h-screen overflow-y-auto">
         {cartProducts.length === 0 ? (
@@ -43,7 +44,7 @@ const Cart = () => {
                   <p className="font-semibold">{item.name}</p>
                   <p className="ml-2 text-gray-600">${item.price}</p>
                 </div>
-                <div className="">
+                <div>
                   <div className="quantity flex items-center p-1">
                     <div className="input-group-btn">
                       <button
